@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "348314835458",
+    "firebase_url": "https://watchandlog.firebaseio.com",
+    "project_id": "watchandlog",
+    "storage_bucket": "watchandlog.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:348314835458:android:11ac8d29a2ca5543bce51b",
+        "android_client_info": {
+          "package_name": "com.example.watchandlog"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "348314835458-rl7v22427l1vm8d1e0aahfvbbrjjau1k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.watchandlog",
+            "certificate_hash": "eae061cbc735dd99e2fe48e656586e45fa6aa2bc"
+          }
+        },
+        {
+          "client_id": "348314835458-dpjb27iopch7rdth05kgggqos8vtsip3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBiIF6TOCoLhn9qe1PnlUvopjEcw72tKOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "348314835458-dpjb27iopch7rdth05kgggqos8vtsip3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MainActivity"
+    tools:showIn="@layout/activity_main">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="B.E. Project"
+        android:textSize="36sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.146" />
+
+    <Button
+        android:id="@+id/b_vai"
+        android:layout_width="203dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="36dp"
+        android:onClick="sendMessage2"
+        android:text="Vaibhav"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/b_anu" />
+
+    <Button
+        android:id="@+id/b_anu"
+        android:layout_width="203dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="76dp"
+        android:onClick="sendMessage1"
+        android:text="Anirudh"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/b_amit"
+        android:layout_width="203dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="36dp"
+        android:onClick="sendMessage3"
+        android:text="Amit"
+        app:layout_constraintStart_toStartOf="@+id/b_vai"
+        app:layout_constraintTop_toBottomOf="@+id/b_vai" />
+
+    <Button
+        android:id="@+id/b_var"
+        android:layout_width="203dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="36dp"
+        android:onClick="sendMessage4"
+        android:text="Varun"
+        app:layout_constraintStart_toStartOf="@+id/b_amit"
+        app:layout_constraintTop_toBottomOf="@+id/b_amit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
