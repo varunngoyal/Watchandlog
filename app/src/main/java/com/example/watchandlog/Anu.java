@@ -87,7 +87,7 @@ public class Anu extends AppCompatActivity {
                 }
 
                 if(flga){
-                Toast toast=Toast.makeText(getApplicationContext(),"Wrong pin!!",Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(),"Invalid pin!!",Toast.LENGTH_SHORT);
                 //toast.setMargin(500,500);
                 toast.show();
                 pin.setText("");}
