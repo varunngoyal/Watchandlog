@@ -56,7 +56,7 @@ public class Anu extends AppCompatActivity {
 
         reff.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            public void onDataChange( DataSnapshot dataSnapshot) {
 
                 boolean flga = true;
                 for(DataSnapshot keynode: dataSnapshot.getChildren())
@@ -89,7 +89,7 @@ public class Anu extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast toast=Toast.makeText(getApplicationContext(),"Hello Javatpoint",Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(),"Hello Varun",Toast.LENGTH_SHORT);
                 toast.setMargin(50,50);
                 toast.show();
             }
