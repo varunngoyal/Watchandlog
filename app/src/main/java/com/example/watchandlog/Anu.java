@@ -97,7 +97,7 @@ public class Anu extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast toast=Toast.makeText(getApplicationContext(),"Database error",Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(),"boring error",Toast.LENGTH_SHORT);
                 toast.setMargin(50,50);
                 toast.show();
             }
