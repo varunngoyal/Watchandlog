@@ -2,76 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/Total"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".anu_page">
-
-    <TextView
-        android:id="@+id/person"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
-        android:text="Welcome Anirudh!!"
-        android:textSize="30sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/event_label"
-        android:layout_width="79dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="68dp"
-        android:text="Event"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/person" />
-
-    <EditText
-        android:id="@+id/event"
-        android:layout_width="220dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="9dp"
-        android:layout_marginLeft="9dp"
-        android:layout_marginTop="48dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.662"
-        app:layout_constraintStart_toEndOf="@+id/event_label"
-        app:layout_constraintStart_toStartOf="@+id/event_label"
-        app:layout_constraintTop_toBottomOf="@+id/person"
-        app:layout_constraintVertical_bias="0.049" />
-
-    <TextView
-        android:id="@+id/amount_label"
-        android:layout_width="97dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="72dp"
-        android:text="Amount"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.079"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/event_label" />
-
-    <EditText
-        android:id="@+id/amount"
-        android:layout_width="220dp"
-        android:layout_height="48dp"
-        android:ems="10"
-        android:inputType="number"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.265"
-        app:layout_constraintStart_toEndOf="@+id/amount_label"
-        app:layout_constraintTop_toBottomOf="@+id/event"
-        app:layout_constraintVertical_bias="0.211" />
 
     <Button
         android:id="@+id/submit_amount"
@@ -82,8 +16,139 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/amount"
-        app:layout_constraintVertical_bias="0.496" />
+        app:layout_constraintVertical_bias="0.17" />
+
+    <EditText
+        android:id="@+id/amount"
+        android:layout_width="220dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="72dp"
+        android:ems="10"
+        android:inputType="number"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.703"
+        app:layout_constraintStart_toEndOf="@+id/amount_label"
+        app:layout_constraintTop_toBottomOf="@+id/event"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <EditText
+        android:id="@+id/event"
+        android:layout_width="220dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginStart="9dp"
+        android:layout_marginTop="164dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/event_label"
+        app:layout_constraintStart_toStartOf="@+id/event_label"
+        app:layout_constraintTop_toBottomOf="@+id/person"
+        app:layout_constraintVertical_bias="0.002" />
+
+    <TextView
+        android:id="@+id/amount_label"
+        android:layout_width="97dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="72dp"
+        android:text="Amount"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/event_label"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/event_label"
+        android:layout_width="97dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="164dp"
+        android:text="Event"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/person"
+        app:layout_constraintVertical_bias="0.002" />
+
+    <TextView
+        android:id="@+id/person"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:text="Welcome Anirudh!!"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="263dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="76dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="76dp"
+        android:text="Your total contribution is "
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.222"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/person"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <TextView
+        android:id="@+id/total_amount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight=" 30dp"
+        android:hint="amount"
+        android:textColor="#4CAF50"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toTopOf="@+id/event"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toEndOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/person"
+        app:layout_constraintVertical_bias="0.414" />
+
+    <TextView
+        android:id="@+id/debt_text"
+        android:layout_width="121dp"
+        android:layout_height="45dp"
+        android:layout_marginLeft="15dp"
+        android:text="Your Debt"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.137"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/submit_amount"
+        app:layout_constraintVertical_bias="0.478" />
+
+    <TextView
+        android:id="@+id/debt"
+        android:layout_width="100dp"
+        android:layout_height="45dp"
+        android:hint="amount"
+        android:textColor="#F44336"
+        android:textSize="22sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/debt_text"
+        app:layout_constraintTop_toBottomOf="@+id/submit_amount" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,7 +47,7 @@ public class Anu extends AppCompatActivity {
 
         Bundle bundle = new Bundle();
 
-        bundle.putString("button_name1", name.getText().toString());
+        bundle.putString("button_name1",button_name);
         int1.putExtras(bundle);
 
         DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Login");

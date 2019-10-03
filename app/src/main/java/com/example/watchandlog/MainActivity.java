@@ -5,9 +5,13 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -17,30 +21,16 @@ import android.view.MenuItem;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
+    int project_amount=0;
 
     public void openActivity_anu() {
-        /*DatabaseReference reff = FirebaseDatabase.getInstance().getReference().child("Login");
-        Login login = new Login();
-        login.setPass("1234");
-        login.setUname("Anirudh");
-        reff.push().setValue(login);
 
-        login.setPass("12345");
-        login.setUname("Vaibhav");
-        reff.push().setValue(login);
-
-        login.setPass("123456");
-        login.setUname("Amit");
-        reff.push().setValue(login);
-
-        login.setPass("1234567");
-        login.setUname("Varun");
-        reff.push().setValue(login);*/
 
         Intent intent = new Intent(this, Anu.class);
         Button button_text = (Button) findViewById(R.id.b_anu);
@@ -100,8 +90,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    DatabaseReference reff;
-    Login login;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,25 +100,36 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Events");
 
-        //Toast.makeText(MainActivity.this, "Firebase connection successful", Toast.LENGTH_LONG).show();
-        /*button = (Button) findViewById(R.id.b_anu);
-        button.setOnClickListener(new View.OnClickListener()
-        {
+        reff.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onClick(View v1)
-            {
-                openActivity_anu();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot keynode: dataSnapshot.getChildren())
+                {
+                    add_event Event =keynode.getValue(add_event.class);
+                    project_amount+=Integer.parseInt(Event.getAmount());
+
+                }
+
+
+                TextView Project_amount = (TextView) findViewById(R.id.project_amount);
+                Project_amount.setText("Rs. "+project_amount);
+                project_amount=0;
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast toast=Toast.makeText(getApplicationContext(),"Hello bhosadiwale",Toast.LENGTH_SHORT);
+                toast.setMargin(50,50);
+                toast.show();
             }
         });
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
+
+
+
+
     }
 
 
