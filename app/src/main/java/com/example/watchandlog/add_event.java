@@ -44,7 +44,7 @@ public class add_event {
         this.date = date;
     }
 
-    public add_event(String amount, String event, String date, String name) {
+    public add_event(String amount, String date, String event, String name) {
         this.amount = amount;
         this.event = event;
         this.name = name;

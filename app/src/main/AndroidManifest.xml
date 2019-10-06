@@ -9,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".anu_page"></activity>
+        <activity android:name=".balance_sheet"></activity>
+        <activity android:name=".option_page" />
+        <activity android:name=".anu_page" />
         <activity android:name=".Anu" />
         <activity
             android:name=".ui.login.LoginAnu"

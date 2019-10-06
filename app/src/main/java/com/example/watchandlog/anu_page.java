@@ -35,10 +35,12 @@ public class anu_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anu_page);
 
+
         Bundle bundle = getIntent().getExtras();
-        button_name = bundle.getString("button_name1");
+        button_name = bundle.getString("button_name");
         TextView person = (TextView) findViewById(R.id.person);
-        person.setText("Welcome " +button_name+"!!");
+        person.setText("Welcome " + button_name + "!!");
+
 
         DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Events");
 
@@ -82,7 +84,7 @@ public class anu_page extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast toast=Toast.makeText(getApplicationContext(),"Hello bhosadiwale",Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(),"database error",Toast.LENGTH_SHORT);
                 toast.setMargin(50,50);
                 toast.show();
             }

@@ -19,17 +19,26 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class Anu extends AppCompatActivity {
-    String button_name="";
+import java.util.HashMap;
 
+public class Anu extends AppCompatActivity {
+    String button_name="";//button name is name of person who has logged in
+    Intent int1;
+    HashMap<String,Integer> user_contribution=new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anu);
         Bundle bundle    = getIntent().getExtras();
+        int1 = new Intent(this, option_page.class);
+        int1.putExtras(bundle);
         button_name = bundle.getString("button_name");
         TextView display_name = (TextView) findViewById(R.id.display_name);
         display_name.setText("Welcome "+button_name+"!!");
+        user_contribution=(HashMap<String,Integer>)bundle.getSerializable("user_contribution");
+        //Toast toast=Toast.makeText(getApplicationContext(),""+user_contribution.get("babu"),Toast.LENGTH_SHORT);
+        //toast.show();
+
 
 
     }
@@ -40,15 +49,12 @@ public class Anu extends AppCompatActivity {
 
         final EditText pin = (EditText) findViewById(R.id.pin);
         final int password = Integer.parseInt(pin.getText().toString());
-        final Intent int1;
-
-        int1 = new Intent(this, anu_page.class);
         TextView name = (TextView) findViewById(R.id.display_name);
 
-        Bundle bundle = new Bundle();
+        //Bundle bundle = new Bundle();
 
-        bundle.putString("button_name1",button_name);
-        int1.putExtras(bundle);
+        //bundle.putString("button_name",button_name);
+       // int1.putExtras(bundle);
 
         DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Login");
 
@@ -65,6 +71,8 @@ public class Anu extends AppCompatActivity {
 
                     if(button_name.equals(l.getUname()) && pin.getText().toString().equals(l.getPass()))
                     {
+
+
                         finish();
                         startActivity(int1);
                         flga = false;
@@ -89,7 +97,7 @@ public class Anu extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast toast=Toast.makeText(getApplicationContext(),"Hello bhosadiwale",Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(),"Database error",Toast.LENGTH_SHORT);
                 toast.setMargin(50,50);
                 toast.show();
             }
