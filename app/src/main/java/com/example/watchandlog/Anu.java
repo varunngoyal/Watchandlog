@@ -42,7 +42,7 @@ public class Anu extends AppCompatActivity {
         final int password = Integer.parseInt(pin.getText().toString());
         final Intent int1;
 
-        int1 = new Intent(this, anu_page.class);
+        int1 = new Intent(this, option_page.class);
         TextView name = (TextView) findViewById(R.id.display_name);
 
         Bundle bundle = new Bundle();
