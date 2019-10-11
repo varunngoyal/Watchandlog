@@ -37,10 +37,66 @@ public class balance_sheet extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_balance_sheet);
-        final TableLayout ll = (TableLayout) findViewById(R.id.amount_table);
         final Bundle bundle=getIntent().getExtras();
         final String button_name=bundle.getString("button_name");
-        final HashMap<String, Double> user_contribution = (HashMap<String, Double>) bundle.getSerializable("user_contribution");
+        //final HashMap<String, Double> user_contribution = (HashMap<String, Double>) bundle.getSerializable("user_contribution");
+        DatabaseReference reff3 = FirebaseDatabase.getInstance().getReference("accounts");
+        reff3.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Map<String,Double>user_contribution=new HashMap<>();
+                TableLayout ll = (TableLayout) findViewById(R.id.amount_table);
+
+                for(DataSnapshot keynode: dataSnapshot.getChildren()) {
+
+
+                    account acc = keynode.getValue(account.class);
+                    if (acc.getAccount_holder().equals(button_name)) {
+                        user_contribution = acc.getUser_contribution();
+                        Set<String> keys = user_contribution.keySet();
+                        double amount = 0.0;
+                        int k = 0;
+                        for (String i : keys) {
+                            amount = user_contribution.get(i);
+                            TableRow row = new TableRow(getApplicationContext());
+                            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+                            row.setLayoutParams(lp);
+                            TextView name = new TextView(getApplicationContext());
+                            Button pay = new Button(getApplicationContext());
+
+                            if(amount<0)
+                            {
+                                name.setText("You need to pay " + i + " Rs." + abs(amount));
+                                pay.setText("Pay");
+                                row.addView(name);
+                                row.addView(pay);
+                                ll.addView(row, k++);
+                            }
+
+                            else if (amount > 0) {
+                                name.setText("You need to receive Rs."+amount+" from "+i);
+                                pay.setText("received");
+                                row.addView(name);
+                                row.addView(pay);
+                                ll.addView(row,k++);
+                            }
+                        }
+
+                    }
+
+                }}
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
          /*Map<String,Double> names = new HashMap<>();
          Set<String> keys = user_contribution.keySet();
 
