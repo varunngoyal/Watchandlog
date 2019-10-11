@@ -30,17 +30,50 @@ public class anu_page extends AppCompatActivity {
     String button_name="";
     int total_amount = 0;
     int project_amount=0;
+    double received = 0.0;
+    double paid = 0.0;
+    double perhead = 0.0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anu_page);
 
+
         Bundle bundle = getIntent().getExtras();
-        button_name = bundle.getString("button_name1");
+        button_name = bundle.getString("button_name");
         TextView person = (TextView) findViewById(R.id.person);
-        person.setText("Welcome " +button_name+"!!");
+        person.setText("Welcome " + button_name + "!!");
+
 
         DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Events");
+        DatabaseReference reff2 = FirebaseDatabase.getInstance().getReference("transactions");
+
+      reff2.addValueEventListener(new ValueEventListener() {
+          @Override
+          public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+              for(DataSnapshot keynode : dataSnapshot.getChildren())
+              {
+                  transactions transaction = keynode.getValue(transactions.class);
+
+                  if(button_name.equals(transaction.getTo()) && transaction.getStatus().equals("accepted"))
+                  {
+                      received += Double.parseDouble(transaction.getAmount());
+                  }
+
+                  if(button_name.equals(transaction.getFrom()) && transaction.getStatus().equals("accepted"))
+                  {
+                      paid += Double.parseDouble(transaction.getAmount());
+                  }
+              }
+
+          }
+
+          @Override
+          public void onCancelled(@NonNull DatabaseError databaseError) {
+
+          }
+      });
 
        reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -68,12 +101,16 @@ public class anu_page extends AppCompatActivity {
                 if(((project_amount/4.0)-total_amount)<=0)
                 {
                     Debt_text.setText("Your credit ");
-                    Project_amount.setText(""+(total_amount-(project_amount/4.0)));
+                    Project_amount.setText(""+(total_amount-(project_amount/4.0)-received));
                     Project_amount.setTextColor(Color.GREEN);
                 }
                 else
                 {
-                    Project_amount.setText(""+((project_amount/4.0)-total_amount));
+                    if(((project_amount/4.0)-total_amount-paid)==0)
+                    {
+                        Debt_text.setText("Your credit ");
+                    }
+                    Project_amount.setText(""+((project_amount/4.0)-total_amount-paid));
                 }
                 project_amount=0;
                 total_amount=0;
@@ -82,7 +119,7 @@ public class anu_page extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast toast=Toast.makeText(getApplicationContext(),"Hello bhosadiwale",Toast.LENGTH_SHORT);
+                Toast toast=Toast.makeText(getApplicationContext(),"database error",Toast.LENGTH_SHORT);
                 toast.setMargin(50,50);
                 toast.show();
             }
@@ -111,6 +148,61 @@ public class anu_page extends AppCompatActivity {
 
             }
         });
+
+        perhead = Double.parseDouble(amount.getText().toString())/4;
+/*--------------------------------------------------------------------------------------------------------------------------*/
+       // updating accounts
+        final DatabaseReference reff3 = FirebaseDatabase.getInstance().getReference("accounts");
+
+        reff3.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot keynode : dataSnapshot.getChildren())
+                {
+
+                    account acc = keynode.getValue(account.class);
+                    String key2 = keynode.getKey();
+                    Map<String,Double> user = acc.getUser_contribution();
+                    Set<String>  keys = user.keySet();
+                   if(acc.getAccount_holder().equals(button_name))
+                    {
+                        for(String name:keys)
+                        {
+                            reff3.child(key2).child("user_contribution").child(name).setValue(user.get(name)+perhead);
+                            Toast toast=Toast.makeText(getApplicationContext(),user.get(name).toString(),Toast.LENGTH_SHORT);
+                            toast.show();
+
+
+                        }
+
+                    }
+                    else
+                    {
+                        for(String name:keys)
+                        {
+                            if(name.equals(button_name))
+                                reff3.child(key2).child("user_contribution").child(name).setValue(user.get(name)-perhead);
+                        }
+
+                    }
+                    keys.clear();
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+/*-------------------------------------------------------------------------------------------------------------------*/
+
+
+
 
 
 

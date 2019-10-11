@@ -24,70 +24,35 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button button;
-    int project_amount=0;
+    private int project_amount=0;
+    private HashMap<String,Double>user_contribution=new HashMap<>();
+   // private final Intent intent = new Intent(this, Anu.class);
+    //private final Intent main_to_balance = new Intent(this, balance_sheet.class);
 
-    public void openActivity_anu() {
-
-
+    public void sendMessage (View view){
         Intent intent = new Intent(this, Anu.class);
-        Button button_text = (Button) findViewById(R.id.b_anu);
-        String get_button_name=button_text.getText().toString();
+        Button b=(Button)view;
+        String get_button_name=b.getText().toString();
         Bundle bundle = new Bundle();
         bundle.putString("button_name", get_button_name);
+        bundle.putSerializable("user_contribution",user_contribution);
         intent.putExtras(bundle);
-
+        Set<String>s=user_contribution.keySet();
+       /* for(String i:s) {
+            Toast toast = Toast.makeText(getApplicationContext(), ""+i+": " + user_contribution.get(i), Toast.LENGTH_SHORT);
+            toast.show();
+        }*/
         startActivity(intent);
+
     }
 
-    public void sendMessage1 (View view){
-        openActivity_anu();
-    }
-
-
-    public void openActivity_vai() {
-        Intent intent = new Intent(this, Anu.class);
-        Button button_text = (Button) findViewById(R.id.b_vai);
-        String get_button_name=button_text.getText().toString();
-        Bundle bundle = new Bundle();
-        bundle.putString("button_name", get_button_name);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    public void sendMessage2 (View view){
-        openActivity_vai();
-    }
-
-    public void openActivity_amit() {
-        Intent intent = new Intent(this, Anu.class);
-        Button button_text = (Button) findViewById(R.id.b_amit);
-        String get_button_name=button_text.getText().toString();
-        Bundle bundle = new Bundle();
-        bundle.putString("button_name", get_button_name);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    public void sendMessage3 (View view){
-        openActivity_amit();
-    }
-
-    public void openActivity_var() {
-        Intent intent = new Intent(this, Anu.class);
-        Button button_text = (Button) findViewById(R.id.b_var);
-        String get_button_name=button_text.getText().toString();
-        Bundle bundle = new Bundle();
-        bundle.putString("button_name", get_button_name);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-    public void sendMessage4 (View view){
-        openActivity_var();
-    }
 
 
 
@@ -101,6 +66,30 @@ public class MainActivity extends AppCompatActivity {
 
 
         DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Events");
+        DatabaseReference users = FirebaseDatabase.getInstance().getReference("Login");
+
+        users.addValueEventListener((new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                for(DataSnapshot keynode: dataSnapshot.getChildren())
+                {
+                    login_details log_details  =keynode.getValue(login_details.class);
+
+                    user_contribution.put(log_details.getUname(),0.0);
+
+                }
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }));
+
 
         reff.addValueEventListener(new ValueEventListener() {
             @Override
@@ -108,7 +97,12 @@ public class MainActivity extends AppCompatActivity {
                 for(DataSnapshot keynode: dataSnapshot.getChildren())
                 {
                     add_event Event =keynode.getValue(add_event.class);
-                    project_amount+=Integer.parseInt(Event.getAmount());
+                    String uname=Event.getName();
+                   project_amount+=Integer.parseInt(Event.getAmount());
+
+
+
+
 
                 }
 
@@ -116,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                 TextView Project_amount = (TextView) findViewById(R.id.project_amount);
                 Project_amount.setText("Rs. "+project_amount);
                 project_amount=0;
+
 
             }
 
@@ -126,6 +121,8 @@ public class MainActivity extends AppCompatActivity {
                 toast.show();
             }
         });
+
+
 
 
 
@@ -146,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
+
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
