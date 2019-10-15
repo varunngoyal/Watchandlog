@@ -28,9 +28,7 @@ public class add_event {
         this.event = event;
     }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
     public void setName(String name) {
         this.name = name;
