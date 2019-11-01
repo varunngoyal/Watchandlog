@@ -32,17 +32,18 @@ public class option_page extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             intent.putExtras(bundle);
 
-            finish();
+            //finish();
+            //commented the finish() function because it destroys this page. so on pressing back button it goes to main page
             startActivity(intent);
+            //finish();
         }
         else
         {
             intent = new Intent(this, anu_page.class);
             Bundle bundle = getIntent().getExtras();
             intent.putExtras(bundle);
-            finish();
             startActivity(intent);
-
+            //finish();
         }
     }
 }
