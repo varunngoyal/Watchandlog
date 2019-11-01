@@ -34,4 +34,16 @@
         app:layout_constraintTop_toBottomOf="@+id/balance_sheet"
         app:layout_constraintVertical_bias="0.331" />
 
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:onClick="removeEvent"
+        android:text="Remove data"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/add_data" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

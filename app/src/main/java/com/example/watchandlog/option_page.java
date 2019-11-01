@@ -46,4 +46,12 @@ public class option_page extends AppCompatActivity {
             //finish();
         }
     }
+
+    public void removeEvent(View view) {
+        //goto new activity activity_remove_page
+        Intent intent = new Intent(this, remove_page.class);
+        Bundle bundle = getIntent().getExtras();
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

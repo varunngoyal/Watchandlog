@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
                 for(DataSnapshot keynode: dataSnapshot.getChildren())
                 {
-                    login_details log_details  =keynode.getValue(login_details.class);
+                    Login log_details  =keynode.getValue(Login.class);
 
                     user_contribution.put(log_details.getUname(),0.0);
 

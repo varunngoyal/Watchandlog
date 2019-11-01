@@ -4,24 +4,16 @@ public class Login {
 
     private String uname;
     private String pass;
-    private String test;
+
 
     public Login() {
     }
 
-    public Login(String uname, String pass,String test) {
+    public Login(String uname, String pass,String test, String emailid) {
         this.uname = uname;
         this.pass = pass;
-        this.test=test;
     }
 
-    public String getTest() {
-        return test;
-    }
-
-    public void setTest(String test) {
-        this.test = test;
-    }
 
     public String getUname() {
         return uname;
