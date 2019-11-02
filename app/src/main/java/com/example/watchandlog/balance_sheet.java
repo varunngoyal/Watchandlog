@@ -68,7 +68,7 @@ public class balance_sheet extends AppCompatActivity {
                         for(String i: keys)
                         {
                             amount=user_contribution.get(i);
-                            if (amount!=0)
+                            if (amount!=0 && i.compareToIgnoreCase(button_name)!=0)
                             {
                                 count++;
                             }
@@ -122,7 +122,7 @@ public class balance_sheet extends AppCompatActivity {
                             //pay = new Button(getApplicationContext());
                             //pay.setId(2000+k);
 
-                            if(amount<0 && k<count)
+                            if(amount<0 && k<count && i.compareToIgnoreCase(button_name)!=0)
                             {
                                 name.setText("You need to pay " + i + " Rs." + abs(amount));
                                 pay.setText("Pay");
@@ -133,7 +133,7 @@ public class balance_sheet extends AppCompatActivity {
                                 //toast.show();
                             }
 
-                            else if (amount > 0 && k<count) {
+                            else if (amount > 0 && k<count && i.compareToIgnoreCase(button_name)!=0) {
                                 name.setText("You need to receive Rs."+amount+" from "+i);
                                 pay.setText("received");
                                 row.addView(name);
@@ -195,10 +195,17 @@ public class balance_sheet extends AppCompatActivity {
                     if(acc.getAccount_holder().equals(button_name))
                     {
                         reff.child(key).child("user_contribution").child(name_of_payer).setValue(0);
+                        double amount=user.get(button_name);
+                        double paid=user.get(name_of_payer);
+                        reff.child(key).child("user_contribution").child(button_name).setValue(amount-paid);
                     }
                     else if(acc.getAccount_holder().equals(name_of_payer))
                     {
                         reff.child(key).child("user_contribution").child(button_name).setValue(0);
+                        double paid=abs(user.get(button_name));
+                        double amount=user.get(name_of_payer);
+                        reff.child(key).child("user_contribution").child(name_of_payer).setValue(amount+paid);
+
                     }
                     else
                     {

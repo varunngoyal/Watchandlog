@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -24,113 +25,93 @@ import java.time.LocalDateTime;
 import java.text.*;
 import java.time.*;
 import java.util.*;
+import static java.lang.StrictMath.abs;
 
 
 public class anu_page extends AppCompatActivity {
     String button_name="";
-    int total_amount = 0;
+    double total_amount_contributed = 0.0;
     int project_amount=0;
     double received = 0.0;
     double paid = 0.0;
     double perhead = 0.0;
+    double credit_debit_amount=0.0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anu_page);
-
-
+        //Toast new_
         Bundle bundle = getIntent().getExtras();
+        final TextView Total = (TextView) findViewById(R.id.total_amount);
         button_name = bundle.getString("button_name");
+        final TextView Debt_text = (TextView) findViewById(R.id.debt_text);
+        final TextView Project_amount = (TextView) findViewById(R.id.debt);
+
         TextView person = (TextView) findViewById(R.id.person);
         person.setText("Welcome " + button_name + "!!");
-
-
-        DatabaseReference reff = FirebaseDatabase.getInstance().getReference("Events");
-        DatabaseReference reff2 = FirebaseDatabase.getInstance().getReference("transactions");
-
-      reff2.addValueEventListener(new ValueEventListener() {
-          @Override
+        DatabaseReference reff2 = FirebaseDatabase.getInstance().getReference("accounts");
+        reff2.addValueEventListener(new ValueEventListener() {
+            @Override
           public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+              Map<String,Double> user_contribution=new HashMap<>();
               for(DataSnapshot keynode : dataSnapshot.getChildren())
               {
-                  transactions transaction = keynode.getValue(transactions.class);
+                  account acc = keynode.getValue(account.class);
 
-                  if(button_name.equals(transaction.getTo()) && transaction.getStatus().equals("accepted"))
+                  if(button_name.equals(acc.getAccount_holder()))
                   {
-                      received += Double.parseDouble(transaction.getAmount());
-                  }
+                      user_contribution=acc.getUser_contribution();
+                      Set<String>keys=user_contribution.keySet();
+                      for(String i:keys)
+                      {
+                          if(i.compareToIgnoreCase(button_name)==0)
+                          {
+                              total_amount_contributed=user_contribution.get(i);
+                              Total.setText(""+total_amount_contributed);
 
-                  if(button_name.equals(transaction.getFrom()) && transaction.getStatus().equals("accepted"))
-                  {
-                      paid += Double.parseDouble(transaction.getAmount());
+                          }
+                          else
+                          {
+                              credit_debit_amount+=user_contribution.get(i);
+                              //Toast toast=Toast.makeText(getApplicationContext(),"credit_debit_amount: "+credit_debit_amount,Toast.LENGTH_SHORT);
+                              //toast.show();
+                          }
+                      }
                   }
               }
+                if(credit_debit_amount>=0)
+                {
+                    Debt_text.setText("Your credit ");
+                    Project_amount.setText(""+credit_debit_amount);
+                    Project_amount.setTextColor(Color.GREEN);
+                }
+                else
+                {
+                    Debt_text.setText("Your debt ");
+                    Project_amount.setText(""+abs(credit_debit_amount));
+                }
+                credit_debit_amount=0;
+                total_amount_contributed=0;
 
           }
-
           @Override
           public void onCancelled(@NonNull DatabaseError databaseError) {
 
           }
       });
-
-       reff.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange( DataSnapshot dataSnapshot) {
-                for(DataSnapshot keynode: dataSnapshot.getChildren())
-                {
-                    add_event Event =keynode.getValue(add_event.class);
-
-                    if(button_name.equalsIgnoreCase(Event.getName())) {
-
-                        total_amount+=Integer.parseInt(Event.getAmount());
+        //Toast toast=Toast.makeText(getApplicationContext(),"total amount"+total_amount_contributed,Toast.LENGTH_SHORT);
+        //toast.show();
 
 
-                    }
-
-                    project_amount+=Integer.parseInt(Event.getAmount());
-
-                }
-
-                TextView Total = (TextView) findViewById(R.id.total_amount);
-                Total.setText(""+total_amount);
-                TextView Debt_text = (TextView) findViewById(R.id.debt_text);
-                TextView Project_amount = (TextView) findViewById(R.id.debt);
-
-                if(((project_amount/4.0)-total_amount)<=0)
-                {
-                    Debt_text.setText("Your credit ");
-                    Project_amount.setText(""+(total_amount-(project_amount/4.0)-received));
-                    Project_amount.setTextColor(Color.GREEN);
-                }
-                else
-                {
-                    if(((project_amount/4.0)-total_amount-paid)==0)
-                    {
-                        Debt_text.setText("Your credit ");
-                    }
-                    Project_amount.setText(""+((project_amount/4.0)-total_amount-paid));
-                }
-                project_amount=0;
-                total_amount=0;
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Toast toast=Toast.makeText(getApplicationContext(),"database error",Toast.LENGTH_SHORT);
-                toast.setMargin(50,50);
-                toast.show();
-            }
-        });
-
+     project_amount=0;
+     total_amount_contributed=0;
     }
 
     public void submit(View view)
     {
         EditText event = (EditText) findViewById(R.id.event);
-        EditText amount = (EditText) findViewById(R.id.amount);
+        final EditText amount = (EditText) findViewById(R.id.amount);
+        final Double amount_currently_entered=Double.parseDouble(amount.getText().toString());
         AlertDialog.Builder dlgAlert = new AlertDialog.Builder(this);
         DateFormat formatter =new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
@@ -169,9 +150,14 @@ public class anu_page extends AppCompatActivity {
                     {
                         for(String name:keys)
                         {
-                            reff3.child(key2).child("user_contribution").child(name).setValue(user.get(name)+perhead);
-                            Toast toast=Toast.makeText(getApplicationContext(),user.get(name).toString(),Toast.LENGTH_SHORT);
-                            toast.show();
+                            if(name.compareToIgnoreCase(button_name)!=0)
+                                reff3.child(key2).child("user_contribution").child(name).setValue(user.get(name)+perhead);
+                            else
+                            {
+
+                                reff3.child(key2).child("user_contribution").child(name).setValue(user.get(name)+amount_currently_entered);
+
+                            }
 
 
                         }
@@ -223,5 +209,7 @@ public class anu_page extends AppCompatActivity {
                     }
                 });
     }
+
+
 
 }
