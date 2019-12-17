@@ -15,11 +15,15 @@
         android:layout_height="55dp"
         android:layout_marginTop="36dp"
         android:onClick="sendMessage"
-        android:text="Vaibhav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/b_anu" />
+        app:layout_constraintTop_toBottomOf="@+id/b_anu"
+        android:text="Vaibhav"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="@drawable/custom_button"
+        />
 
     <Button
         android:id="@+id/b_anu"
@@ -30,7 +34,10 @@
         android:text="Anirudh"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="@drawable/custom_button"/>
 
     <Button
         android:id="@+id/b_amit"
@@ -38,9 +45,12 @@
         android:layout_height="55dp"
         android:layout_marginTop="36dp"
         android:onClick="sendMessage"
-        android:text="Amit"
         app:layout_constraintStart_toStartOf="@+id/b_vai"
-        app:layout_constraintTop_toBottomOf="@+id/b_vai" />
+        app:layout_constraintTop_toBottomOf="@+id/b_vai"
+        android:text="Amit"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="@drawable/custom_button"/>
 
     <Button
         android:id="@+id/b_var"
@@ -50,19 +60,24 @@
         android:onClick="sendMessage"
         android:text="Varun"
         app:layout_constraintStart_toStartOf="@+id/b_amit"
-        app:layout_constraintTop_toBottomOf="@+id/b_amit" />
+        app:layout_constraintTop_toBottomOf="@+id/b_amit"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:background="@drawable/custom_button"
+        />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
         android:text="B.E. Project"
         android:textSize="36sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.129" />
+        android:textColor="#000000"/>
 
     <TextView
         android:id="@+id/textView6"

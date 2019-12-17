@@ -18,6 +18,10 @@ public class option_page extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_option_page);
+        TextView welcomeTxt = (TextView)findViewById(R.id.welcometxt);
+        Bundle bundle    = getIntent().getExtras();
+        String button_name = bundle.getString("button_name");
+        welcomeTxt.setText("Welcome "+button_name+"!");
     }
 
     public void goto_page(View view)

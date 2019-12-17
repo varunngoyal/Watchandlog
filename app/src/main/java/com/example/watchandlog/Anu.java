@@ -34,7 +34,7 @@ public class Anu extends AppCompatActivity {
         int1.putExtras(bundle);
         button_name = bundle.getString("button_name");
         TextView display_name = (TextView) findViewById(R.id.display_name);
-        display_name.setText("Welcome "+button_name+"!!");
+        display_name.setText("Hello "+button_name+"!");
         user_contribution=(HashMap<String,Integer>)bundle.getSerializable("user_contribution");
         //Toast toast=Toast.makeText(getApplicationContext(),""+user_contribution.get("babu"),Toast.LENGTH_SHORT);
         //toast.show();
